@@ -1,0 +1,33 @@
+<section>
+    <h2>Le blind index</h2>
+
+    <div class="anim-stage blind-index" data-anim="blind-index">
+        <div class="anim-zone app"><p class="anim-zone-title">Application</p></div>
+        <div class="anim-zone db"><p class="anim-zone-title">PostgreSQL</p></div>
+
+        <div class="anim-cell head email">email</div>
+        <div class="anim-cell head index">email_index</div>
+        <div class="anim-row row-3" data-anim-el="match"></div>
+        <div class="anim-cell email row-1">Kp2d…Lq8=</div>
+        <div class="anim-cell index row-1">a91c…04e</div>
+        <div class="anim-cell email row-2">Wm5r…Hc1=</div>
+        <div class="anim-cell index row-2">3be0…f17</div>
+
+        <div class="anim-token master" data-anim-el="indexKey">Clé d'index</div>
+        <div class="anim-token data" data-anim-el="value">jane@example.com</div>
+        <div class="anim-token data search" data-anim-el="search">jane@example.com</div>
+        <div class="anim-token data cipher" data-anim-el="cipher"><span data-anim-el="cipherText">jane@example.com</span></div>
+        <div class="anim-token tag" data-anim-el="tag">7f3a…c21</div>
+        <div class="anim-token tag" data-anim-el="searchTag">7f3a…c21</div>
+    </div>
+
+    <div class="anim-captions">
+        <p class="fragment current-visible" data-anim-step="1">On enregistre jane@example.com.</p>
+        <p class="fragment current-visible" data-anim-step="2">Chiffrée, elle part dans <code>email</code> : illisible.</p>
+        <p class="fragment current-visible" data-anim-step="3">À côté, son empreinte, calculée avec la clé d'index.</p>
+        <p class="fragment current-visible" data-anim-step="4">Plus tard, on cherche jane@example.com.</p>
+        <p class="fragment current-visible" data-anim-step="5">Même valeur, même clé : même empreinte.</p>
+        <p class="fragment current-visible" data-anim-step="6">PostgreSQL compare les empreintes : ligne trouvée.</p>
+        <p class="fragment" data-anim-step="7">La base n'a jamais vu l'email <span class="accent-verified">en clair</span>.</p>
+    </div>
+</section>

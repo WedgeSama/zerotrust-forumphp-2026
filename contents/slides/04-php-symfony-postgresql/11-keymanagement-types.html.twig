@@ -1,0 +1,24 @@
+<section>
+    <h2>Déclarer le type chiffré</h2>
+
+    <pre class="code-block" style="width: 100%"><code class="language-yaml" data-trim data-line-numbers="|7|8-9">
+# config/services.yaml
+services:
+  app.encrypted_types:
+    class: Symfony\Component\KeyManagement\Bridge\DoctrineDbal\EncryptedTypes
+    public: true
+    arguments:
+      $envelopes: '@key_management.envelope_encrypter.aws'
+      $types:
+        encrypted_string: { type: string, key: 'app-key' }
+    </code></pre>
+
+    <pre class="code-block fragment"><code class="language-php" data-trim>
+// src/Kernel.php
+public function boot(): void
+{
+    parent::boot();
+    $this-&gt;container-&gt;get('app.encrypted_types')-&gt;register();
+}
+    </code></pre>
+</section>

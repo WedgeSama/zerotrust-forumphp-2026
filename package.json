@@ -1,0 +1,28 @@
+{
+    "dependencies": {
+        "animejs": "^4.5.0",
+        "chart.js": "^4.5.1",
+        "highlight.js": "^11.11.1",
+        "reveal.js": "^5.2.1",
+        "twig": "^1.15.4",
+        "webpack": "^5.101.3"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.28.4",
+        "@babel/preset-env": "^7.28.3",
+        "@symfony/webpack-encore": "^5.2.0",
+        "@types/reveal.js": "^5.2.0",
+        "file-loader": "^6.0.0",
+        "html-webpack-plugin": "^5.6.4",
+        "sass": "^1.93.0",
+        "sass-loader": "^16.0.1",
+        "ts-loader": "^9.0.0",
+        "typescript": "^5.9.2",
+        "webpack-cli": "^6.0.1",
+        "webpack-dev-server": "^5.2.2"
+    },
+    "scripts": {
+        "serve": "encore dev-server --live-reload --port 8000 --host=0.0.0.0 --keep-public-path",
+        "build": "encore production"
+    }
+}

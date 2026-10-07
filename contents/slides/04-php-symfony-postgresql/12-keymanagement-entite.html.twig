@@ -1,0 +1,16 @@
+<section>
+    <h2>Et dans l'entité</h2>
+
+    <pre class="code-block"><code class="language-php" data-trim data-line-numbers="|5|4">
+#[ORM\Entity]
+class User
+{
+    #[ORM\Column(type: 'encrypted_string')]
+    private string $email = '';
+}
+    </code></pre>
+
+    <p class="fragment">Le reste de l'application <span class="accent-verified">ne change pas</span>.</p>
+
+    <p class="slide-lead fragment">En base : une colonne binaire (<code>bytea</code>), plus longue que la valeur.</p>
+</section>

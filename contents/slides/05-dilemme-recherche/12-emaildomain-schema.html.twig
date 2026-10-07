@@ -1,0 +1,61 @@
+<section>
+    <h2>L'index <code>EmailDomain</code></h2>
+
+    <svg class="schema" viewBox="0 0 960 310" role="img" aria-label="Une adresse ou un domaine seul donnent le même domaine en minuscules, puis la même empreinte">
+        <defs>
+            <marker id="arrow-emaildomain" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+                <path class="schema-arrow-head" d="M0,0 L6,3 L0,6 Z"/>
+            </marker>
+        </defs>
+
+        <text class="schema-note" x="135" y="80">Valeur</text>
+
+        <rect class="schema-block" x="270" y="45" width="170" height="230" rx="4"/>
+        <text class="schema-block-text" x="355" y="72">Garder le domaine</text>
+        <text class="schema-block-text" x="355" y="92">en minuscules</text>
+
+        <rect class="schema-block" x="640" y="45" width="150" height="230" rx="4"/>
+        <text class="schema-block-text" x="715" y="72">Hash</text>
+        <text class="schema-block-text" x="715" y="92">clé d'index</text>
+
+        <text class="schema-note" x="890" y="80">email_domain_index</text>
+
+        <g class="fragment" data-fragment-index="1">
+            <text class="schema-code" x="135" y="135">jane@example.com</text>
+            <line class="schema-arrow" x1="240" y1="130" x2="264" y2="130" marker-end="url(#arrow-emaildomain)"/>
+            <line class="schema-arrow" x1="440" y1="130" x2="474" y2="130" marker-end="url(#arrow-emaildomain)"/>
+            <text class="schema-code" x="540" y="135">example.com</text>
+            <line class="schema-arrow" x1="605" y1="130" x2="634" y2="130" marker-end="url(#arrow-emaildomain)"/>
+            <line class="schema-arrow" x1="790" y1="130" x2="824" y2="130" marker-end="url(#arrow-emaildomain)"/>
+            <text class="schema-code schema-cipher" x="890" y="135">5c2e…a90</text>
+        </g>
+
+        <g class="fragment" data-fragment-index="2">
+            <text class="schema-code" x="135" y="195">John@EXAMPLE.com</text>
+            <line class="schema-arrow" x1="240" y1="190" x2="264" y2="190" marker-end="url(#arrow-emaildomain)"/>
+            <line class="schema-arrow" x1="440" y1="190" x2="474" y2="190" marker-end="url(#arrow-emaildomain)"/>
+            <text class="schema-code" x="540" y="195">example.com</text>
+            <line class="schema-arrow" x1="605" y1="190" x2="634" y2="190" marker-end="url(#arrow-emaildomain)"/>
+            <line class="schema-arrow" x1="790" y1="190" x2="824" y2="190" marker-end="url(#arrow-emaildomain)"/>
+            <text class="schema-code schema-cipher" x="890" y="195">5c2e…a90</text>
+        </g>
+
+        <g class="fragment" data-fragment-index="3">
+            <text class="schema-note" x="135" y="228">Recherche</text>
+            <text class="schema-code" x="135" y="255">example.com</text>
+            <line class="schema-arrow" x1="240" y1="250" x2="264" y2="250" marker-end="url(#arrow-emaildomain)"/>
+            <line class="schema-arrow" x1="440" y1="250" x2="474" y2="250" marker-end="url(#arrow-emaildomain)"/>
+            <text class="schema-code" x="540" y="255">example.com</text>
+            <line class="schema-arrow" x1="605" y1="250" x2="634" y2="250" marker-end="url(#arrow-emaildomain)"/>
+            <line class="schema-arrow" x1="790" y1="250" x2="824" y2="250" marker-end="url(#arrow-emaildomain)"/>
+            <text class="schema-code schema-cipher" x="890" y="255">5c2e…a90</text>
+        </g>
+
+        <g class="fragment" data-fragment-index="4">
+            <rect class="schema-tls" x="825" y="105" width="130" height="170" rx="6"/>
+            <text class="schema-tls-text" x="890" y="298">Même empreinte</text>
+        </g>
+    </svg>
+
+    <p class="slide-lead fragment" data-fragment-index="4">Une empreinte par domaine</p>
+</section>

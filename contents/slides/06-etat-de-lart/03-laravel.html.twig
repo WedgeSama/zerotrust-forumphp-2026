@@ -1,0 +1,33 @@
+<section>
+    <h2>Avec Laravel</h2>
+
+    <pre class="code-block compact fragment"><code class="language-bash" data-trim>
+php artisan key:generate
+    </code></pre>
+
+    <p class="fragment">OpenSSL, AES-256-CBC</p>
+
+    <p class="fragment">
+        Une clé en var d'env, pas de KMS natif
+    </p>
+
+    <pre class="code-block fragment"><code class="language-php" data-trim>
+protected function casts(): array
+{
+    return [
+        'email' =&gt; 'encrypted',
+        'addresses' =&gt; 'encrypted:array',
+        'tags' =&gt; 'encrypted:collection',
+    ];
+}
+    </code></pre>
+
+    <p class="slide-lead fragment">Blind index : <a href="https://github.com/spatie/laravel-ciphersweet" target="_blank"><code>spatie/laravel-ciphersweet</code></a></p>
+
+    <p class="slide-source fragment">
+        Sources :
+        <a href="https://laravel.com/framework/docs/13.x/eloquent-mutators#encrypted-casting" target="_blank">Laravel 13.x, Encrypted Casting</a>
+        -
+        <a href="https://laravel.com/framework/docs/13.x/encryption" target="_blank">Laravel 13.x, Encryption</a>
+    </p>
+</section>

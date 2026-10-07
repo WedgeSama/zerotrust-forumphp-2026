@@ -1,0 +1,22 @@
+<section>
+    <h2>Et en NoSQL : MongoDB</h2>
+
+    <p class="slide-lead">Queryable Encryption</p>
+
+    <pre class="code-block"><code class="language-php" data-trim>
+#[ODM\Field(type: 'string')]
+#[ODM\Encrypt(queryType: EncryptQuery::Equality)]
+public string $ssn;
+    </code></pre>
+
+    <p class="fragment">Natif dans <span class="accent-trust">Doctrine ODM</span> depuis la 2.12</p>
+
+    <p class="slide-lead fragment">MongoDB Enterprise 7.0+ & Atlas</p>
+
+    <p class="slide-source fragment">
+        Sources :
+        <a href="https://www.mongodb.com/docs/manual/core/queryable-encryption/fundamentals/" target="_blank">documentation MongoDB</a>
+        -
+        <a href="https://www.doctrine-project.org/projects/doctrine-mongodb-odm/en/2.16/cookbook/queryable-encryption.html" target="_blank">Doctrine ODM</a>
+    </p>
+</section>

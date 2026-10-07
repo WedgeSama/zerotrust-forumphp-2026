@@ -1,0 +1,28 @@
+<section>
+    <h2>Chiffrement par enveloppe</h2>
+
+    <div class="anim-stage enveloppe" data-anim="enveloppe">
+        <div class="anim-zone app"><p class="anim-zone-title">Application</p></div>
+        <div class="anim-zone kms"><p class="anim-zone-title">KMS</p></div>
+        <div class="anim-zone db"><p class="anim-zone-title">PostgreSQL</p></div>
+
+        <div class="anim-token master" data-anim-el="master">Clé principale</div>
+
+        <div class="anim-packet" data-anim-el="packet">
+            <div class="anim-envelope" data-anim-el="envelope"><span class="anim-envelope-label">Enveloppe</span></div>
+            <div class="anim-token data" data-anim-el="data"><span data-anim-el="dataText">jane@example.com</span></div>
+            <div class="anim-token wrapped" data-anim-el="wrapped">Clé chiffrée</div>
+        </div>
+
+        <div class="anim-token key" data-anim-el="key">Clé de données</div>
+    </div>
+
+    <div class="anim-captions">
+        <p class="fragment current-visible" data-anim-step="1">Une clé de données, et sa copie chiffrée par le KMS</p>
+        <p class="fragment current-visible" data-anim-step="2">L'application récupère les deux</p>
+        <p class="fragment current-visible" data-anim-step="3">L'application chiffre la donnée, en local</p>
+        <p class="fragment current-visible" data-anim-step="4">La clé en clair est effacée</p>
+        <p class="fragment current-visible" data-anim-step="5">Donnée chiffrée + clé chiffrée : l'enveloppe</p>
+        <p class="fragment" data-anim-step="6">L'enveloppe part en base</p>
+    </div>
+</section>

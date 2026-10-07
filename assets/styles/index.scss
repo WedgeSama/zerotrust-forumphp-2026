@@ -1,0 +1,986 @@
+@import 'reveal.js/dist/reveal.css';
+@import 'reveal.js/dist/theme/white.css';
+@import 'highlight.js/styles/github.css';
+
+// Identité "Zero Trust" — thème clair, sobre, orienté sécurité.
+// Bleu confiance / vérification, rouge alerte / non-fiable, vert "vérifié".
+:root {
+    --zt-bg: #F8FAFC;
+    --zt-surface: #FFFFFF;
+    --zt-text: #0F172A;
+    --zt-muted: #475569;
+    --zt-border: #E2E8F0;
+
+    --zt-trust: #1D4ED8;     // bleu — identité vérifiée, confiance établie
+    --zt-trust-dark: #1E3A8A;
+    --zt-trust-soft: #DBEAFE; // fond des blocs imbriqués dans un schéma
+    --zt-alert: #DC2626;     // rouge — non fiable, risque, échec
+    --zt-verified: #059669;  // vert — contrôle passé, donnée protégée
+    --zt-external: #D97706;  // orange : disponible via une bibliothèque externe
+
+    // Slides sombres : titre + transitions entre parties (seule exception au thème clair)
+    --zt-dark-bg: #0F172A;
+    --zt-dark-text: #F8FAFC;
+    --zt-dark-eyebrow: #93C5FD;
+}
+
+.reveal {
+    background: var(--zt-bg);
+
+    h1, h2, h3 {
+        color: var(--zt-trust-dark);
+        text-transform: none;
+        letter-spacing: normal;
+    }
+
+    p, li {
+        color: var(--zt-text);
+    }
+
+    .accent-alert {
+        color: var(--zt-alert);
+        font-weight: 700;
+    }
+
+    .accent-verified {
+        color: var(--zt-verified);
+        font-weight: 700;
+    }
+
+    .accent-trust {
+        color: var(--zt-trust);
+        font-weight: 700;
+    }
+
+    // Slide speaker (ouverture) : carte centrée, photo + rôle.
+    .speaker-slide {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .speaker-photo {
+        width: 160px;
+        height: 160px;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 50%;
+        border: 3px solid var(--zt-trust);
+        padding: 5px;
+        box-sizing: border-box;
+        margin-bottom: 20px;
+    }
+
+    .speaker-line {
+        width: 55px;
+        height: 4px;
+        background: var(--zt-trust);
+        margin: 12px auto 16px;
+        border-radius: 2px;
+    }
+
+    .speaker-role {
+        color: var(--zt-muted);
+        font-size: 0.75em;
+    }
+
+    .speaker-company-logo {
+        max-width: 160px;
+        display: block;
+        margin: 2em auto 0;
+    }
+
+    // Slide accroche : fuite réelle mise en avant (date, faits, chiffre, source).
+    .hook-slide {
+        h2 {
+            margin-top: 0;
+        }
+
+        .hook-date {
+            color: var(--zt-muted);
+            font-size: 0.6em;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.2em;
+        }
+
+        blockquote {
+            border-left: 4px solid var(--zt-alert);
+            margin: 0.6em auto;
+            padding: 0.2em 0 0.2em 0.8em;
+            text-align: left;
+            font-style: normal;
+            font-size: 0.8em;
+            color: var(--zt-text);
+            box-shadow: none;
+        }
+
+        .hook-figure {
+            color: var(--zt-alert);
+            font-weight: 700;
+            font-size: 1.2em;
+            margin: 0.4em 0 0.1em;
+        }
+
+        .hook-detail {
+            color: var(--zt-muted);
+            font-size: 0.65em;
+            margin-top: 0;
+        }
+
+        // Chute de l'accroche, en rouge.
+        .hook-alert {
+            color: var(--zt-alert);
+            font-weight: 700;
+            font-size: 0.75em;
+            margin: 0.3em 0 0;
+        }
+    }
+
+    // Slide exemples : une fuite par ligne (chiffre, organisation, date).
+    .breach-list {
+        width: 100%;
+        margin: 0.8em auto 0;
+    }
+
+    .breach-row {
+        display: grid;
+        grid-template-columns: 4.5em 1fr auto;
+        align-items: center;
+        gap: 1em;
+        padding: 0.5em 0;
+        text-align: left;
+        border-bottom: 1px solid var(--zt-border);
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        p, h4 {
+            margin: 0;
+        }
+
+        h4 {
+            color: var(--zt-trust-dark);
+            font-size: 0.8em;
+        }
+    }
+
+    .breach-figure {
+        color: var(--zt-alert);
+        font-weight: 700;
+        font-size: 1.1em;
+        text-align: right;
+
+        &.unknown {
+            color: var(--zt-muted);
+        }
+    }
+
+    .breach-detail {
+        color: var(--zt-muted);
+        font-size: 0.6em;
+    }
+
+    .breach-date {
+        color: var(--zt-muted);
+        font-size: 0.55em;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    // Slide meme : le GIF seul, centré, sans titre ni texte.
+    .meme-slide img,
+    .meme-img {
+        display: block;
+        max-width: 90%;
+        margin: 0 auto;
+        border: none;
+        border-radius: 8px;
+        box-shadow: none;
+    }
+
+    .meme-slide img {
+        max-height: 520px;
+    }
+
+    // Meme sous le titre d'une slide (ex. « Des questions ? », « Merci ! »).
+    .meme-img {
+        max-height: 300px;
+    }
+
+    // Ligne de source en bas de slide.
+    .slide-source {
+        color: var(--zt-muted);
+        font-size: 0.5em;
+        margin-top: 1em;
+    }
+
+    // Slides conséquences : blocs côte à côte, bordure rouge.
+    .impact-grid {
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: 1fr;
+        gap: 1.5em;
+        margin-top: 1em;
+    }
+
+    // Slides de cas : un seul bloc, resserré et centré.
+    .impact-grid.case-grid {
+        width: 60%;
+        margin: 1.5em auto 0;
+
+        p {
+            font-size: 0.75em;
+            line-height: 1.5;
+        }
+    }
+
+    .impact-item {
+        border-left: 4px solid var(--zt-alert);
+        padding: 0.2em 0 0.2em 0.8em;
+        text-align: left;
+
+        h3 {
+            margin: 0 0 0.3em;
+            font-size: 0.8em;
+        }
+
+        p {
+            margin: 0;
+            color: var(--zt-muted);
+            font-size: 0.65em;
+        }
+    }
+
+    // Hors sujet (gris) / notre sujet (bleu).
+    .impact-item.out-of-scope {
+        border-left-color: var(--zt-border);
+
+        h3 {
+            color: var(--zt-muted);
+        }
+    }
+
+    .impact-item.our-topic {
+        border-left-color: var(--zt-trust);
+
+        h3 {
+            color: var(--zt-trust);
+        }
+    }
+
+    // Variante verte : ce qui est (ou passe pour) fiable.
+    .impact-item.verified {
+        border-left-color: var(--zt-verified);
+
+        h3 {
+            color: var(--zt-verified);
+        }
+    }
+
+    // Frise chronologique en grille (3 colonnes), lue de gauche à droite.
+    .timeline-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1em 1.5em;
+        margin-top: 1em;
+    }
+
+    // Variante : une dernière rangée incomplète est centrée (ex. 5 piliers : 3 + 2).
+    .timeline-grid.is-centered {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        .timeline-item {
+            flex: 0 1 30%;
+        }
+    }
+
+    .timeline-item {
+        text-align: left;
+        border-top: 3px solid var(--zt-trust);
+        padding-top: 0.4em;
+
+        p, h4 {
+            margin: 0;
+        }
+
+        h4 {
+            color: var(--zt-trust-dark);
+            font-size: 0.7em;
+        }
+
+        p {
+            color: var(--zt-muted);
+            font-size: 0.55em;
+        }
+
+        // Année, ou titre à sa place (ex. un pilier).
+        .timeline-year,
+        .timeline-title {
+            color: var(--zt-trust);
+            font-size: 1em;
+            font-weight: 700;
+        }
+
+        // Réponse négative (ex. « Hors scope »).
+        p.is-no {
+            color: var(--zt-alert);
+            font-weight: 700;
+        }
+
+        // Bloc mis en avant (ex. Données) : fond bleu clair.
+        &.is-reference {
+            background: var(--zt-trust-soft);
+            padding: 0.4em 0.5em 0.5em;
+        }
+    }
+
+    // Rangée de pastilles (ex. piliers Zero Trust), une mise en avant.
+    .pillar-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.6em;
+        margin-top: 1em;
+    }
+
+    .pillar {
+        border: 2px solid var(--zt-border);
+        border-radius: 999px;
+        padding: 0.3em 0.9em;
+        font-size: 0.7em;
+        color: var(--zt-text);
+
+        // Mise en avant au clic (fragment Reveal "custom" : la pastille reste visible).
+        &.focus {
+            display: inline-grid;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+
+            // Copie invisible du libellé en gras : fixe la largeur dès le départ,
+            // la pastille ne grandit pas (et la rangée ne bouge pas) au passage en gras.
+            &::after {
+                content: attr(data-label);
+                font-weight: 700;
+                height: 0;
+                overflow: hidden;
+                visibility: hidden;
+            }
+        }
+
+        &.focus.visible {
+            border-color: var(--zt-trust);
+            background-color: var(--zt-trust);
+            color: #FFFFFF;
+            font-weight: 700;
+        }
+    }
+
+    // Bloc de code, thème clair (github.css).
+    pre.code-block {
+        width: 90%;
+        margin: 0.8em auto;
+        font-size: 0.45em;
+        box-shadow: none;
+        border: 1px solid var(--zt-border);
+        border-radius: 8px;
+        background: var(--zt-surface);
+
+        code {
+            max-height: none;
+            padding: 0.8em 1em;
+            background: var(--zt-surface);
+        }
+    }
+
+    // Variante compacte : une ligne de code dans une carte (ex. nom de paquet).
+    pre.code-block.compact {
+        width: fit-content;
+        max-width: 100%;
+        margin: 0.3em auto 0;
+        font-size: 0.32em;
+        border-radius: 6px;
+
+        code {
+            padding: 0.3em 0.8em;
+        }
+    }
+
+    // Schéma SVG inline : couleurs par classes, fragments Reveal sur les <g>.
+    svg.schema {
+        display: block;
+        width: 100%;
+        margin: 0.4em auto 0;
+
+        text {
+            font-family: inherit;
+            text-anchor: middle;
+        }
+    }
+
+    .schema-container {
+        fill: none;
+        stroke: var(--zt-trust);
+        stroke-width: 2;
+    }
+
+    .schema-title {
+        fill: var(--zt-trust-dark);
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    .schema-block {
+        fill: var(--zt-trust-soft);
+        stroke: var(--zt-trust);
+        stroke-width: 1;
+    }
+
+    .schema-block-text {
+        fill: var(--zt-trust-dark);
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    // Bloc mis en avant (ex. le point d'interception).
+    .schema-block.focus {
+        fill: var(--zt-trust);
+    }
+
+    .schema-block-text.focus {
+        fill: #FFFFFF;
+    }
+
+    // Légende dans un schéma, étiquette d'une flèche.
+    .schema-note,
+    .schema-arrow-label {
+        fill: var(--zt-muted);
+        font-size: 14px;
+    }
+
+    .schema-storage {
+        fill: none;
+        stroke: var(--zt-muted);
+        stroke-width: 2;
+    }
+
+    .schema-storage-text {
+        fill: var(--zt-muted);
+        font-size: 14px;
+    }
+
+    .schema-band.secured {
+        fill: var(--zt-verified);
+    }
+
+    .schema-band-text {
+        fill: #FFFFFF;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .schema-arrow,
+    .schema-link {
+        stroke: var(--zt-muted);
+        stroke-width: 2;
+    }
+
+    .schema-arrow-head {
+        fill: var(--zt-muted);
+    }
+
+
+    svg.schema text.schema-code {
+        fill: var(--zt-text);
+        font-family: monospace;
+        font-size: 16px;
+    }
+
+    svg.schema .schema-clear {
+        fill: var(--zt-alert);
+        font-weight: 700;
+    }
+
+    svg.schema .schema-cipher {
+        fill: var(--zt-verified);
+        font-weight: 700;
+    }
+
+    .schema-tls {
+        fill: var(--zt-verified);
+        fill-opacity: 0.15;
+        stroke: var(--zt-verified);
+        stroke-width: 1.5;
+    }
+
+    .schema-tls-text {
+        fill: var(--zt-verified);
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    // Sous un schéma : une colonne par élément, ce qui est protégé (✓) ou non (✗).
+    .layer-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        margin-top: 0.4em;
+    }
+
+    .layer-col {
+        padding: 0 1em;
+        text-align: left;
+
+        h3 {
+            margin: 0 0 0.3em;
+            font-size: 0.65em;
+        }
+
+        p {
+            margin: 0 0 0.3em;
+            font-size: 0.5em;
+        }
+    }
+
+    .layer-yes::before {
+        content: "✓ ";
+        color: var(--zt-verified);
+        font-weight: 700;
+    }
+
+    .layer-no::before {
+        content: "✗ ";
+        color: var(--zt-alert);
+        font-weight: 700;
+    }
+
+    // Animation pas à pas (anime.js, assets/scripts/animations/) : une scène en positions absolues,
+    // des zones fixes et des jetons que l'animation déplace (translations depuis leur position de départ).
+    .anim-stage {
+        position: relative;
+        width: 960px;
+        max-width: 100%;
+        height: 350px;
+        margin: 0.4em auto 0;
+        text-align: left;
+    }
+
+    .anim-zone {
+        position: absolute;
+        border: 2px solid var(--zt-trust);
+        border-radius: 8px;
+    }
+
+    .anim-zone-title {
+        position: absolute;
+        top: 8px;
+        left: 14px;
+        margin: 0;
+        color: var(--zt-trust-dark);
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    .anim-packet {
+        position: absolute;
+        transform-origin: 0 0;
+    }
+
+    .anim-token {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 36px;
+        border-radius: 999px;
+        color: #FFFFFF;
+        font-size: 15px;
+        font-weight: 700;
+
+        &.master {
+            background: var(--zt-trust);
+        }
+
+        &.key {
+            background: var(--zt-verified);
+        }
+
+        &.wrapped {
+            background: var(--zt-trust-dark);
+        }
+
+        &.data {
+            height: 50px;
+            border: 2px solid var(--zt-alert);
+            border-radius: 6px;
+            background: var(--zt-surface);
+            color: var(--zt-alert);
+            font-family: monospace;
+            font-size: 20px;
+            transition: color 0.4s, border-color 0.4s;
+
+            &.is-cipher {
+                border-color: var(--zt-verified);
+                color: var(--zt-verified);
+            }
+        }
+    }
+
+    // Enveloppe : un cadre avec un rabat (triangle) dessiné en CSS.
+    .anim-envelope {
+        position: absolute;
+        overflow: hidden;
+        border: 2px solid var(--zt-muted);
+        border-radius: 6px;
+        background: var(--zt-trust-soft);
+
+        &::before {
+            content: "";
+            position: absolute;
+            inset: 0 0 auto 0;
+            height: 40%;
+            background: var(--zt-border);
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+        }
+    }
+
+    .anim-envelope-label {
+        position: absolute;
+        top: 6px;
+        left: 12px;
+        color: var(--zt-muted);
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    // Légendes d'étape superposées : une seule visible à la fois (fragments current-visible).
+    .anim-captions {
+        display: grid;
+        margin-top: 0.5em;
+
+        > * {
+            grid-area: 1 / 1;
+            margin: 0;
+            font-size: 0.7em;
+        }
+    }
+
+    // Scènes « enveloppe » (04/08-kms-enveloppe) et « dechiffrement » (04/09-kms-dechiffrement) :
+    // même décor, positions de départ.
+    .anim-stage.enveloppe,
+    .anim-stage.dechiffrement {
+        .anim-zone.app { left: 0; top: 0; width: 440px; height: 350px; }
+        .anim-zone.kms { left: 600px; top: 0; width: 360px; height: 130px; }
+        .anim-zone.db { left: 600px; top: 170px; width: 360px; height: 180px; }
+
+        .anim-token.master { left: 800px; top: 55px; width: 140px; }
+        .anim-token.key { left: 620px; top: 40px; width: 150px; }
+
+        .anim-packet { left: 20px; top: 130px; width: 400px; height: 190px; }
+        .anim-envelope { left: 0; top: 0; width: 400px; height: 190px; }
+        .anim-token.data { left: 20px; top: 60px; width: 360px; }
+    }
+
+    // Enveloppe : la clé chiffrée part du KMS ; déchiffrement : elle est déjà rangée dans l'enveloppe.
+    .anim-stage.enveloppe .anim-token.wrapped { left: 600px; top: -40px; width: 150px; }
+    .anim-stage.dechiffrement .anim-token.wrapped { left: 125px; top: 125px; width: 150px; }
+
+    // Empreinte de blind index.
+    .anim-token.tag {
+        border: 2px solid var(--zt-trust);
+        background: var(--zt-surface);
+        color: var(--zt-trust-dark);
+        font-family: monospace;
+    }
+
+    // Valeur recherchée (bleu) et valeur chiffrée qui part en base (plus petite).
+    .anim-token.data.search {
+        border-color: var(--zt-trust);
+        color: var(--zt-trust);
+    }
+
+    .anim-token.data.cipher {
+        height: 44px;
+        font-size: 16px;
+    }
+
+    // Table dans une scène : cellules en positions absolues, ligne surlignée par la classe is-match.
+    .anim-cell {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 44px;
+        border-bottom: 1px solid var(--zt-border);
+        color: var(--zt-muted);
+        font-family: monospace;
+        font-size: 16px;
+
+        &.head {
+            color: var(--zt-trust-dark);
+            font-weight: 700;
+        }
+    }
+
+    .anim-row {
+        position: absolute;
+        border-radius: 6px;
+        transition: background-color 0.4s;
+
+        &.is-match {
+            background: color-mix(in srgb, var(--zt-verified) 18%, transparent);
+        }
+    }
+
+    // Scène « blind-index » (05/06-blind-index) : positions de départ.
+    .anim-stage.blind-index {
+        .anim-zone.app { left: 0; top: 0; width: 400px; height: 350px; }
+        .anim-zone.db { left: 460px; top: 0; width: 500px; height: 350px; }
+
+        .anim-cell.email { left: 480px; width: 220px; }
+        .anim-cell.index { left: 720px; width: 220px; }
+        .anim-cell.head { top: 50px; }
+        .anim-cell.row-1 { top: 100px; }
+        .anim-cell.row-2 { top: 160px; }
+        .anim-row.row-3 { left: 470px; top: 214px; width: 480px; height: 56px; }
+
+        .anim-token.master { left: 20px; top: 55px; width: 150px; }
+        .anim-token.tag { left: 190px; top: 55px; width: 180px; }
+        .anim-token.data { left: 20px; top: 130px; width: 360px; }
+        .anim-token.data.cipher { left: 90px; top: 135px; width: 220px; }
+    }
+
+    // Tableau comparatif (lignes = options, colonnes = critères) ; is-yes vert, is-lib orange, is-no rouge, is-todo gris.
+    table.compare-table {
+        margin: 0.6em auto 0;
+        font-size: 0.6em;
+        border-collapse: collapse;
+
+        th, td {
+            padding: 0.4em 0.8em;
+            border-bottom: 1px solid var(--zt-border);
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        thead th {
+            max-width: 7em;
+            color: var(--zt-trust-dark);
+        }
+
+        tbody th {
+            color: var(--zt-text);
+            text-align: left;
+        }
+
+        // Ligne de référence (ex. Symfony) : fond bleu clair, filet bleu dessous.
+        tr.is-reference {
+            background: var(--zt-trust-soft);
+
+            th, td {
+                border-bottom: 2px solid var(--zt-trust);
+            }
+        }
+
+        .compare-sub {
+            color: var(--zt-muted);
+            font-size: 0.8em;
+            font-weight: 400;
+        }
+
+        .is-yes {
+            color: var(--zt-verified);
+            font-weight: 700;
+        }
+
+        .is-no {
+            color: var(--zt-alert);
+            font-weight: 700;
+        }
+
+        // Oui, mais via une bibliothèque externe : ✓<sup>+</sup> orange.
+        .is-lib {
+            color: var(--zt-external);
+            font-weight: 700;
+        }
+
+        // Légende sous le tableau (caption) : ✓ natif, ✓+ lib externe, ✗ absent.
+        .compare-legend {
+            caption-side: bottom;
+            padding-top: 0.6em;
+            color: var(--zt-muted);
+            font-size: 0.8em;
+
+            span + span {
+                margin-left: 1em;
+            }
+        }
+
+        .is-todo {
+            color: var(--zt-muted);
+            font-style: italic;
+        }
+    }
+
+    // Citation mise en avant.
+    blockquote.quote {
+        width: 80%;
+        margin: 1em auto;
+        padding: 0.4em 0 0.4em 1em;
+        border-left: 4px solid var(--zt-trust);
+        box-shadow: none;
+        background: none;
+        font-size: 0.9em;
+        font-style: italic;
+        text-align: left;
+        color: var(--zt-text);
+    }
+
+    // Phrase d'accroche sous un titre.
+    .slide-lead {
+        color: var(--zt-muted);
+        font-size: 0.75em;
+        margin-bottom: 1em;
+    }
+
+    // Phrase de conclusion en bas de slide, sous le contenu principal.
+    .slide-footer {
+        width: fit-content;
+        margin: 1.2em auto 0;
+        padding-top: 0.4em;
+        border-top: 1px solid var(--zt-border);
+        color: var(--zt-muted);
+        font-size: 0.6em;
+    }
+
+    // Slide "que faire" : cartes avec QR code, lien et explication.
+    .help-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2em;
+        margin-top: 1em;
+    }
+
+    // Trois colonnes : QR code, meme au centre, QR code (slide « Merci ! »).
+    .help-grid.with-meme {
+        grid-template-columns: auto auto auto;
+        align-items: center;
+        justify-content: center;
+
+        .meme-img {
+            max-height: 260px;
+        }
+    }
+
+    .help-card {
+        text-align: center;
+
+        h3 {
+            margin: 0.4em 0 0.2em;
+            font-size: 0.8em;
+            color: var(--zt-trust-dark);
+        }
+
+        p {
+            margin: 0 0 0.4em;
+            font-size: 0.6em;
+            color: var(--zt-muted);
+        }
+
+        a {
+            font-size: 0.6em;
+            font-weight: 700;
+            color: var(--zt-trust);
+        }
+    }
+
+    // Carte seule, centrée.
+    .help-card.single {
+        width: fit-content;
+        margin: 1em auto 0;
+    }
+
+    .share-qr {
+        width: 220px;
+        height: 220px;
+        margin: 0;
+    }
+
+    // Logo de fournisseur dans une carte : boîte fixe, le logo s'y inscrit quelles que soient ses proportions.
+    .vendor-logo {
+        display: block;
+        width: 220px;
+        height: 60px;
+        margin: 0 auto;
+        object-fit: contain;
+        border: none;
+        box-shadow: none;
+        background: none;
+    }
+
+    // Pagination en bas à gauche, bien visible (au-dessus de la barre de progression).
+    .slide-number {
+        left: 16px;
+        right: auto;
+        bottom: 16px;
+        padding: 6px 12px;
+        border-radius: 6px;
+        background-color: var(--zt-trust);
+        color: #FFFFFF;
+        font-family: inherit;
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    .slide-number-delimiter {
+        margin: 0 4px;
+        opacity: 0.7;
+    }
+
+    // Barre de progression un peu plus épaisse.
+    .progress {
+        height: 6px;
+        color: var(--zt-trust);
+    }
+
+    // Titre + transitions entre parties : seules slides en thème sombre du deck.
+    section.dark-transition {
+        h1, h2, h3, p {
+            color: var(--zt-dark-text);
+        }
+
+        .eyebrow {
+            color: var(--zt-dark-eyebrow);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 0.9em;
+        }
+
+        // Slide « Merci ! » : nom et pseudo sous le titre.
+        .thanks-speaker {
+            color: var(--zt-dark-eyebrow);
+            font-size: 0.7em;
+        }
+
+        // Logo de l'événement (slide de titre), posé directement sur le fond
+        // sombre : le texte du logo Forum PHP est blanc.
+        .event-logo {
+            display: block;
+            width: fit-content;
+            margin: 1.5em 30px 0 auto;
+
+            img {
+                display: block;
+                height: 100px;
+                margin: 0;
+            }
+        }
+    }
+}
+
+figcaption {
+    font-size: 0.4em;
+}

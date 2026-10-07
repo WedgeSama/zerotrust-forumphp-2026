@@ -1,0 +1,16 @@
+<section>
+    <h2>Deux index, une colonne</h2>
+
+    <pre class="code-block"><code class="language-php" data-trim data-line-numbers="|4-6|8-10">
+#[ORM\Column(type: 'encrypted_string')]
+private string $phone = '';
+
+#[ORM\Column(length: 64)]
+#[BlindIndexed('phone', 'user-phone')]
+private string $phoneIndex = '';
+
+#[ORM\Column(length: 64)]
+#[BlindIndexed('phone', 'user-phone-country')]
+private string $phoneCountryIndex = '';
+    </code></pre>
+</section>

@@ -1,0 +1,14 @@
+{
+    "exclude": ["node_modules"],
+    "compilerOptions": {
+        "sourceMap": true,
+        "target": "es2016",
+        "module": "ESNext",
+        "moduleResolution": "bundler",
+        "newLine": "lf",
+
+        "strict": true,
+        "noImplicitAny": true,
+        "alwaysStrict": true
+    }
+}

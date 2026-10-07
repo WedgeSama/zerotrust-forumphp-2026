@@ -1,0 +1,26 @@
+<section>
+    <h2>Votre propre index : le téléphone</h2>
+
+    <p class="slide-lead">Implémenter <code>ProjectionInterface</code></p>
+
+    <pre class="code-block"><code class="language-php" data-trim data-line-numbers="|8-11">
+// "06 12 34 56 78", "+33 6 12-34-56-78" → "+33612345678"
+final class Phone implements ProjectionInterface
+{
+    public function project(#[\SensitiveParameter] string $value): string
+    {
+        $util = PhoneNumberUtil::getInstance();
+
+        return $util-&gt;format(
+            $util-&gt;parse($value, 'FR'),
+            PhoneNumberFormat::E164,
+        );
+    }
+}
+    </code></pre>
+
+    <p class="slide-source fragment">
+        Usage :
+        <a href="https://github.com/giggsey/libphonenumber-for-php" target="_blank">giggsey/libphonenumber-for-php</a>
+    </p>
+</section>

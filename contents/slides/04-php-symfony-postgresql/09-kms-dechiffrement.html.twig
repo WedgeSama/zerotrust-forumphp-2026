@@ -1,0 +1,30 @@
+<section>
+    <h2>Déchiffrer</h2>
+
+    <div class="anim-stage dechiffrement" data-anim="dechiffrement">
+        <div class="anim-zone app"><p class="anim-zone-title">Application</p></div>
+        <div class="anim-zone kms"><p class="anim-zone-title">KMS</p></div>
+        <div class="anim-zone db"><p class="anim-zone-title">PostgreSQL</p></div>
+
+        <div class="anim-token master" data-anim-el="master">Clé principale</div>
+
+        <div class="anim-packet" data-anim-el="packet">
+            <div class="anim-envelope" data-anim-el="envelope"><span class="anim-envelope-label">Enveloppe</span></div>
+            <div class="anim-token data is-cipher" data-anim-el="data"><span data-anim-el="dataText">AQf3…9Qk=</span></div>
+            <div class="anim-token wrapped" data-anim-el="wrapped">Clé chiffrée</div>
+        </div>
+
+        <div class="anim-token key" data-anim-el="key">Clé de données</div>
+    </div>
+
+    <div class="anim-captions">
+        <p class="fragment current-visible" data-anim-step="1">L'application relit l'enveloppe en base</p>
+        <p class="fragment current-visible" data-anim-step="2">Elle envoie la clé chiffrée au KMS</p>
+        <p class="fragment current-visible" data-anim-step="3">Le KMS la déchiffre avec la clé principale</p>
+        <p class="fragment current-visible" data-anim-step="4">Et renvoie la clé en clair à l'application</p>
+        <p class="fragment current-visible" data-anim-step="5">L'application déchiffre la donnée, en local</p>
+        <p class="fragment current-visible" data-anim-step="6">La clé en clair est de nouveau effacée</p>
+        <p class="fragment current-visible" data-anim-step="7">L'enveloppe est retirée : il ne reste que la donnée en clair</p>
+        <p class="fragment" data-anim-step="8">Le KMS n'a vu que la clé, <span class="accent-verified">jamais la donnée</span></p>
+    </div>
+</section>

@@ -1,0 +1,20 @@
+<section>
+    <h2>Configurer vos KMS</h2>
+
+    <pre class="code-block"><code class="language-yaml" data-trim data-line-numbers="|4-5|6-7|8|10|13-14">
+# config/packages/key_management.yaml
+key_management:
+    clients:
+        # e.g. aws-kms://default?region=eu-west-1
+        aws: '%env(AWS_KMS_DSN)%'
+        # e.g. hashicorp-vault-transit://TOKEN@vault.example.com:8200
+        vault: '%env(VAULT_KMS_DSN)%'
+    default_client: vault
+
+when@dev:
+    key_management:
+        clients:
+            aws: 'sodium://?keys[app-key]=%env(DEV_KMS_KEY)%'
+            vault: 'sodium://?keys[app-key]=%env(DEV_KMS_KEY)%'
+    </code></pre>
+</section>

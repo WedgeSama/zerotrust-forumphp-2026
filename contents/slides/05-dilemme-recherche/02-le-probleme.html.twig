@@ -1,0 +1,10 @@
+<section>
+    <h2>Pourquoi <code>WHERE email = ?</code> ne trouve rien</h2>
+
+    <pre class="code-block"><code class="language-php" data-trim data-line-numbers="|1|2">
+$encrypter-&gt;encrypt('app-key', 'jane@example.com'); // AQf3…9Qk=
+$encrypter-&gt;encrypt('app-key', 'jane@example.com'); // Zt8x…M2w=
+    </code></pre>
+
+    <p class="fragment">Même valeur, <span class="accent-alert">deux chiffrés différents</span></p>
+</section>

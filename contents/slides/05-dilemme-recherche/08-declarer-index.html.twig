@@ -1,0 +1,24 @@
+<section>
+    <h2>Déclarer l'index</h2>
+
+    <pre class="code-block" style="width: 100%; font-size: 1.1rem"><code class="language-yaml" data-trim data-line-numbers="|3|5|6-8|9-10|11-12">
+services:
+    app.index.user_email:
+        class: Symfony\Component\KeyManagement\BlindIndex
+        arguments:
+            $kms: '@key_management.aws'
+            $wrappedKey: !service
+                class: Symfony\Component\KeyManagement\Ciphertext
+                arguments: ['%env(base64:APP_INDEX_KEY)%', 'app-key']
+            $projection: !service
+                class: Symfony\Component\KeyManagement\BlindIndex\Projection\Email
+        tags:
+            - { name: key_management.blind_index, index: 'user-email' }
+    </code></pre>
+
+    <pre class="code-block compact fragment"><code class="language-bash" data-trim>
+bin/console key-management:generate-data-key app-key
+    </code></pre>
+
+    <p class="slide-lead fragment">Une clé d'index générée une fois, <span class="accent-alert">qui ne tourne jamais</span></p>
+</section>

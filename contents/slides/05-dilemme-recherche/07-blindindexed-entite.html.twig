@@ -1,0 +1,18 @@
+<section>
+    <h2>Dans l'entité</h2>
+
+    <pre class="code-block"><code class="language-php" data-trim data-line-numbers="|4-5|7-9">
+#[ORM\Entity]
+class User
+{
+    #[ORM\Column(type: 'encrypted_string')]
+    private string $email = '';
+
+    #[ORM\Column(length: 64)]
+    #[BlindIndexed('email', 'user-email')]
+    private string $emailIndex = '';
+}
+    </code></pre>
+
+    <p class="fragment">L'empreinte est calculée <span class="accent-verified">à chaque flush</span></p>
+</section>

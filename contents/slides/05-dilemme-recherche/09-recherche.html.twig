@@ -1,0 +1,12 @@
+<section>
+    <h2>Cherchons à nouveau</h2>
+
+    <pre class="code-block"><code class="language-php" data-trim>
+// dans UserRepository
+$this-&gt;findOneBy(['emailIndex' =&gt; $this-&gt;emailBlindIndex-&gt;of($email)]);
+    </code></pre>
+
+    <p class="fragment">Un <code class="accent-verified">User</code></p>
+
+    <p class="slide-lead fragment">La recherche reste explicite : on cherche l'empreinte, pas la valeur</p>
+</section>

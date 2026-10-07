@@ -1,0 +1,18 @@
+<section>
+    <h2>Et par pays ?</h2>
+
+    <pre class="code-block"><code class="language-php" data-trim data-line-numbers="|8-10">
+// "+33 6 12 34 56 78" → "FR" ; la recherche "fr" → "FR"
+final class PhoneCountry implements ProjectionInterface
+{
+    public function project(#[\SensitiveParameter] string $value): string
+    {
+        $util = PhoneNumberUtil::getInstance();
+
+        return $util-&gt;getRegionCodeForNumber(
+            $util-&gt;parse($value, 'FR')
+        ) ?? '';
+    }
+}
+    </code></pre>
+</section>
